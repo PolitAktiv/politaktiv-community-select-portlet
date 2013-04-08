@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="politaktiv-community-select-portlet">
+        <wb-resource deploy-path="/" source-path="/docroot"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/java/test"/>
+        <property name="java-output-path" value="/politaktiv-community-select-portlet/docroot/WEB-INF/classes"/>
+        <property name="context-root" value="politaktiv-community-select-portlet"/>
+    </wb-module>
+</project-modules>

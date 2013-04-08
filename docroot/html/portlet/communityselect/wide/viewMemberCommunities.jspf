@@ -1,0 +1,71 @@
+
+<%
+viewList = viewContainer.getMemberCommunities();
+%>
+<table class="taglib-search-iterator">
+	<tr class="portlet-section-header results-header">
+		<th><liferay-ui:message key="image"/></th>
+	    <th><liferay-ui:message key="community"/></th>
+	    <th><liferay-ui:message key="users"/></th>
+	    <th><liferay-ui:message key="action"/></th>
+  	</tr>
+	<%
+	for (CommunityView communityView : viewList) {
+		String strCommunityId = communityView.getId();
+		String urlToCommunity = communityView.getCommunityUrl();
+		String urlToLogo = communityView.getLogoUrl();
+	%>
+				
+		<!-- generate actionUrls -->
+		<portlet:actionURL name="joinCommunity" var="joinUrlMemberWide">
+			<portlet:param name="action" value="joinCommunity" />
+			<portlet:param name="<%=CommunityViewConstants.COMMUNITY_ID%>" value="<%=strCommunityId%>" />
+		</portlet:actionURL>
+	
+		<portlet:actionURL name="leaveCommunity" var="leaveUrlMemberWide">
+			<portlet:param name="action" value="leaveCommunity" />
+			<portlet:param name="<%=CommunityViewConstants.COMMUNITY_ID%>" value="<%=strCommunityId%>" />
+		</portlet:actionURL>
+	
+		
+	<%
+		String actionUrl;
+		if(communityView.isActionJoin()) {
+			actionUrl = joinUrlMemberWide.toString();
+		} else if(communityView.isActionLeave()) {
+			actionUrl = leaveUrlMemberWide.toString();
+		} else {
+			actionUrl = themeDisplay.getURLSignIn();
+		}
+	%>
+	
+		<tr>
+			<td>
+				<a href="<%=urlToCommunity%>">
+					<img src="<%=urlToLogo%>" alt="Picture of Project" class="community-select-logo" />
+				</a>
+			</td>
+			
+			<td>
+			    <a href="<%=urlToCommunity%>"><%=communityView.getName()%></a>
+		    </td>
+			
+			<td>
+		    	<%= communityView.getMemberCount() %>
+		    </td>
+		    
+		    
+			<td>
+				<liferay-ui:icon image="<%=communityView.getActionIcon()%>" 
+					message="<%=communityView.getActionText()%>"
+					url="<%=communityView.getActionText()%>" />
+				<a href="<%=actionUrl%>">
+					<liferay-ui:message key="<%=communityView.getActionText()%>" />
+				</a>
+			</td>
+		</tr>
+	<%
+	}
+%>
+</table>
+	

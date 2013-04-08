@@ -1,0 +1,41 @@
+ReleaseNotes:
+
+6.1.0.4 - 20.02.2013
+---------------------------
+* Umgestellt auf ddaCommonBuild
+* In der viewVertical werden jetzt auch offene communities angezeigt.
+* Umstellung auf Events & app-service
+* Portlet in "Politaktiv Community Select Portlet" umbenannt
+* Eine Url für "alle Einträge" hinzugefügt
+* Texte gefixed.
+* Einheitliche Logogröße gefixed
+* Styling gefixed
+* WideView gefixed.
+
+
+3 - 16.08.2012
+---------------------------
+features:
+* tabs in wide view
+* vertical view shows communities, depending on user is logged in or nor
+* configurable number of viewed project in vertival view (preferences)
+
+2 - 18.07.2012
+----------------------------
+features:
+* seaching communities added
+* swedish translation
+* icons on link
+
+
+1.1 
+----------------------------
+*bugfix: added doAsUserId= if user impersonates user
+
+
+1.0RC - 17.11.2011
+-----------------------------
+features:
+* join and leave open communities
+* wide and vertical view mode
+* use community logo with name LOGO.* from gallery

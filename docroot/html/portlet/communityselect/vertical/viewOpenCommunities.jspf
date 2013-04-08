@@ -1,0 +1,69 @@
+<tr>
+	<td colspan="2" class="community-select-classification">
+		<%=LanguageUtil.get(pageContext, "available-open-communities-short")%>
+	</td>
+</tr>
+<%
+viewList = viewContainer.getNonMemberOpenCommunities();
+
+if(numberOfCommunitiesToShow == 0) {
+    numberOfCommunitiesToShow = viewList.size();
+} else {
+    numberOfCommunitiesToShow -= viewContainer.getMemberCommunities().size();
+    numberOfCommunitiesToShow = Math.max(numberOfCommunitiesToShow, 1);
+    numberOfCommunitiesToShow = Math.min(numberOfCommunitiesToShow, viewList.size());
+}
+
+for (int i = 0; i < numberOfCommunitiesToShow; i++) {
+    CommunityView communityView = viewList.get(i);
+	String strCommunityId = communityView.getId();
+	String urlToCommunity = communityView.getCommunityUrl();
+	String urlToLogo = communityView.getLogoUrl();
+%>
+			
+	<!-- generate actionUrls -->
+	<portlet:actionURL name="joinCommunity" var="joinUrlOpen">
+		<portlet:param name="action" value="joinCommunity" />
+		<portlet:param name="<%=CommunityViewConstants.COMMUNITY_ID%>" value="<%=strCommunityId%>" />
+	</portlet:actionURL>
+
+	<portlet:actionURL name="leaveCommunity" var="leaveUrlOpen">
+		<portlet:param name="action" value="leaveCommunity" />
+		<portlet:param name="<%=CommunityViewConstants.COMMUNITY_ID%>" value="<%=strCommunityId%>" />
+	</portlet:actionURL>
+
+	
+<%
+	String actionUrl;
+	if(communityView.isActionJoin()) {
+		actionUrl = joinUrlOpen.toString();
+	} else if(communityView.isActionLeave()) {
+		actionUrl = leaveUrlOpen.toString();
+	} else {
+		actionUrl = themeDisplay.getURLSignIn();
+	}
+%>
+
+	<tr>
+		<td>
+			<a href="<%=urlToCommunity%>">
+				<img src="<%=urlToLogo%>" alt="Picture of Project" class="community-select-logo" />
+			</a>
+		</td>
+		<td>
+			<span class="community-select-link">
+				<a href="<%=urlToCommunity%>"><%=communityView.getName()%></a>
+			</span>
+			<br/>
+			<liferay-ui:icon image="<%=communityView.getActionIcon()%>" 
+				message="<%=communityView.getActionText()%>"
+				url="<%=communityView.getActionText()%>" />
+			<a href="<%=actionUrl%>">
+				<liferay-ui:message key="<%=communityView.getActionText()%>" />
+			</a>
+		</td>
+	</tr>
+<%
+}
+%>
+	

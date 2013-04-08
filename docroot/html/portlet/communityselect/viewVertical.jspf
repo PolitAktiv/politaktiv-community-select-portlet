@@ -1,0 +1,15 @@
+<%
+String preferenceFullPageUrl = portletPreferences.getValue(CommunityViewConstants.PREFERENCE_FULL_PAGE_URL, "");
+int numberOfCommunitiesToShow = new Integer(portletPreferences.getValue("numberOfCommunitiesToShowInVerticalView","0"));
+boolean showFullPageUrl = (numberOfCommunitiesToShow != 0) && 
+	(numberOfCommunitiesToShow < (viewContainer.getNonMemberOpenCommunities().size() + 
+		viewContainer.getMemberCommunities().size()));
+%>
+<table class="taglib-search-iterator">
+	<%List<CommunityView> viewList;%>
+	<%@include file="/html/portlet/communityselect/vertical/viewMemberCommunities.jspf"%>
+	<%@include file="/html/portlet/communityselect/vertical/viewOpenCommunities.jspf"%>		
+</table>
+<%if(showFullPageUrl && !preferenceFullPageUrl.isEmpty()) {%>
+	<p><%=LanguageUtil.get(pageContext, "All-available-projects")%> <a href=<%=preferenceFullPageUrl%>><%=LanguageUtil.get(pageContext, "here")%>.</p>
+<%}%>
