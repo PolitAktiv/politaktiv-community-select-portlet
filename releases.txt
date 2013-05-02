@@ -1,6 +1,6 @@
 ReleaseNotes:
 
-6.1.0.5 - 
+6.1.0.5 - 03.05.2012
 ---------------------------
 * CSS kommt jetzt aus dem Portlet 
 
