@@ -1,5 +1,9 @@
 ReleaseNotes:
 
+6.1.0.5 - 
+---------------------------
+* CSS kommt jetzt aus dem Portlet 
+
 6.1.0.4 - 20.02.2013
 ---------------------------
 * Umgestellt auf ddaCommonBuild
