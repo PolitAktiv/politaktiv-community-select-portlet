@@ -27,19 +27,20 @@
 
 <!--  THE SEARCH -->
 <portlet:actionURL name="doSearch" var="doSearchURL" />
-<aui:form name="fm" action="<%=doSearchURL%>" method="post">
-	<liferay-portlet:renderURLParams varImpl="doSearchURL" />
-	<table border="0">
-		<tr>
-			<th><aui:input type="search"
-					id="<portlet:namespace /><%=CommunityViewConstants.SEARCH_STRING%>"
-					label="" placeholder="<%=placeholder%>" title="<%=title%>"
-					name="<%=CommunityViewConstants.SEARCH_STRING%>"
-					value="<%=activeSearchString%>" /></th>
-			<th><aui:button type="submit" name="Suchen" value="lookup" /></th>
-		</tr>
-	</table>
-</aui:form>
+<div name="communitySearchContainer" id="communitySearchContainer">
+	<aui:form name="fm" action="<%=doSearchURL%>" method="post">
+		<liferay-portlet:renderURLParams varImpl="doSearchURL" />
+	
+				<aui:input type="search"
+						id="<portlet:namespace /><%=CommunityViewConstants.SEARCH_STRING%>"
+						label="" placeholder="<%=placeholder%>" title="<%=title%>"
+						name="<%=CommunityViewConstants.SEARCH_STRING%>"
+						value="<%=activeSearchString%>" 
+						style="float: left;"/>
+			  <aui:button type="submit" name="Suchen" value="lookup" />
+	</aui:form>
+</div>
+
 
 <%
     if (viewMode.equals("wide_view")) {
