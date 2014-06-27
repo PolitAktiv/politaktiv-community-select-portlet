@@ -1,5 +1,2 @@
 dependencies {
-	compile ("politaktiv:politaktiv-infrastructure:0.1")
-	runtime ("liferay:util-bridges:6.1")
-	runtime ("liferay:util-taglib:6.1")
 }

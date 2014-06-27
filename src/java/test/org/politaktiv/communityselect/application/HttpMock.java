@@ -365,4 +365,34 @@ public class HttpMock implements Http {
 		return null;
 	}
 
+	@Override
+	public String encodeParameters(String url) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getPath(String url) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public boolean isSecure(String url) {
+	    // TODO Auto-generated method stub
+	    return false;
+	}
+
+	@Override
+	public String protocolize(String url, int port, boolean secure) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String sanitizeHeader(String header) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
 }

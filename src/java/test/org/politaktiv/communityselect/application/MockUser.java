@@ -18,15 +18,20 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
+import com.liferay.portal.kernel.util.RemotePreference;
 import com.liferay.portal.model.Address;
+import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.Contact;
+import com.liferay.portal.model.EmailAddress;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.PasswordPolicy;
@@ -764,12 +769,12 @@ public class MockUser implements User {
 	}
 
 	@Override
-	public long[] getGroupIds() throws PortalException, SystemException {
+	public long[] getGroupIds() throws SystemException {
 		return new long[] {21, 22, 23};
 	}
 
 	@Override
-	public List<Group> getGroups() throws PortalException, SystemException {
+	public List<Group> getGroups() throws SystemException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -1029,6 +1034,179 @@ public class MockUser implements User {
 	public void setTimeZoneId(String timeZoneId) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public long getLdapServerId() {
+	    // TODO Auto-generated method stub
+	    return 0;
+	}
+
+	@Override
+	public void setLdapServerId(long ldapServerId) {
+	    // TODO Auto-generated method stub
+	    
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(BaseModel<?> baseModel) {
+	    // TODO Auto-generated method stub
+	    
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+	    // TODO Auto-generated method stub
+	    
+	}
+
+	@Override
+	public User toUnescapedModel() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public Map<String, Object> getModelAttributes() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public void setModelAttributes(Map<String, Object> attributes) {
+	    // TODO Auto-generated method stub
+	    
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public void addRemotePreference(RemotePreference remotePreference) {
+	    // TODO Auto-generated method stub
+	    
+	}
+
+	@Override
+	public String getDisplayURL(String portalURL, String mainPath, boolean privateLayout) throws PortalException,
+		SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getDisplayURL(ThemeDisplay themeDisplay, boolean privateLayout) throws PortalException,
+		SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<EmailAddress> getEmailAddresses() throws SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<Group> getMySiteGroups() throws PortalException, SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<Group> getMySiteGroups(boolean includeControlPanel, int max) throws PortalException,
+		SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<Group> getMySiteGroups(int max) throws PortalException, SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<Group> getMySiteGroups(String[] classNames, boolean includeControlPanel, int max)
+		throws PortalException, SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<Group> getMySiteGroups(String[] classNames, int max) throws PortalException, SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public long[] getOrganizationIds(boolean includeAdministrative) throws PortalException, SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<Organization> getOrganizations(boolean includeAdministrative) throws PortalException,
+		SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public RemotePreference getRemotePreference(String name) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public Iterable<RemotePreference> getRemotePreferences() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<Group> getSiteGroups() throws PortalException, SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<Group> getSiteGroups(boolean includeAdministrative) throws PortalException, SystemException {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public boolean isEmailAddressComplete() {
+	    // TODO Auto-generated method stub
+	    return false;
+	}
+
+	@Override
+	public boolean isEmailAddressVerificationComplete() {
+	    // TODO Auto-generated method stub
+	    return false;
+	}
+
+	@Override
+	public boolean isReminderQueryComplete() {
+	    // TODO Auto-generated method stub
+	    return false;
+	}
+
+	@Override
+	public boolean isSetupComplete() {
+	    // TODO Auto-generated method stub
+	    return false;
+	}
+
+	@Override
+	public boolean isTermsOfUseComplete() {
+	    // TODO Auto-generated method stub
+	    return false;
 	}
 
 }
