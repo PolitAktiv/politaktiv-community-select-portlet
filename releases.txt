@@ -1,5 +1,10 @@
 ReleaseNotes:
 
+6.2.0.0 - 29.06.2014
+--------------------------
+Migration to Liferay 6.2
+
+
 6.1.0.5 - 03.05.2012
 ---------------------------
 * CSS kommt jetzt aus dem Portlet 
