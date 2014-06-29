@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 
-<project name="communities-portlet" basedir="." default="deploy">
+<project name="politaktiv-community-select-portlet" basedir="." default="deploy">
 	<import file="../build-common-portlet.xml" id="ant" />
 </project>
