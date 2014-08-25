@@ -19,6 +19,11 @@
 			<name>edit-jsp</name>
 			<value>/html/portlet/communityselect/edit.jsp</value>
 		</init-param>
+		
+		 <init-param>
+     			<name>config-template</name>
+    		 	<value>/html/portlet/communityselect/edit.jsp</value>
+ 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
