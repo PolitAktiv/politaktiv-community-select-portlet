@@ -89,13 +89,17 @@ public class CommunitySelectPortlet extends MVCPortlet {
     }
 
     /**
+     * 
+     * Deprecated. Functionality is taken over by ConfigurationActionImpl 
+     * 
+     * 
      * Save marker view mode (function call come from form in edit view)
      * 
      * @param actionRequest
      * @param actionResponse
      * @throws PortletException
      * @throws IOException
-     */
+     
     public void saveConfig(ActionRequest actionRequest, ActionResponse actionResponse) throws IOException,
 	    PortletException, ValidatorException {
 	PortletPreferences preferences = actionRequest.getPreferences();
@@ -109,6 +113,8 @@ public class CommunitySelectPortlet extends MVCPortlet {
 	prefsRepository.setValueAndStore(preferences, CommunityViewConstants.PREFERENCE_FULL_PAGE_URL, preferenceFullPageUrl);
 	actionResponse.setPortletMode(PortletMode.VIEW);
     }
+
+	*/
 
     /**
      * Join the current user (scope) to community with given community id, if
