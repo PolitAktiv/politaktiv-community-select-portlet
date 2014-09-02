@@ -7,7 +7,7 @@
 		<portlet-name>Politaktiv Community Select Portlet</portlet-name>
 		<icon>/icon.png</icon>
 		<configuration-action-class>
-			com.liferay.portal.kernel.portlet.DefaultConfigurationAction
+			org.politaktiv.communityselect.application.ConfigurationActionImpl
 		</configuration-action-class>
 		<instanceable>false</instanceable>
 		<header-portlet-css>/css/main.css</header-portlet-css>

@@ -11,6 +11,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  --%>
+ 
 
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet"%>
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
@@ -43,3 +44,5 @@
 <%@ page import="org.politaktiv.communityselect.application.CommunityView" %>
 <%@ page import="org.politaktiv.communityselect.application.CommunityViewContainer" %>
 <%@ page import="org.politaktiv.communityselect.application.CommunityViewConstants" %>
+
+<%@ page import="com.liferay.portal.kernel.util.Constants" %>
