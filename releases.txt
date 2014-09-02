@@ -1,5 +1,11 @@
 ReleaseNotes:
 
+6.2.1.1
+-------------------------
+* Fixed custom configuration
+* replaced table styling with floating for verticalView
+
+
 6.2.0.0 - 29.06.2014
 --------------------------
 Migration to Liferay 6.2
