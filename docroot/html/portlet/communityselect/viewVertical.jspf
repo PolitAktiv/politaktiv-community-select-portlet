@@ -19,11 +19,18 @@ boolean showFullPageUrl = (numberOfCommunitiesToShow != 0) &&
 	(numberOfCommunitiesToShow < (viewContainer.getNonMemberOpenCommunities().size() + 
 		viewContainer.getMemberCommunities().size()));
 %>
-<table class="taglib-search-iterator">
+<div class="taglib-search-iterator">
 	<%List<CommunityView> viewList;%>
-	<%@include file="/html/portlet/communityselect/vertical/viewMemberCommunities.jspf"%>
-	<%@include file="/html/portlet/communityselect/vertical/viewOpenCommunities.jspf"%>		
-</table>
+	<div class="viewMemberCommunitiesVertical">
+		<%@include file="/html/portlet/communityselect/vertical/viewMemberCommunities.jspf"%>
+	</div>
+	<br/>
+	<div class="viewOpenCommunitiesVertical">
+		<%@include file="/html/portlet/communityselect/vertical/viewOpenCommunities.jspf"%>		
+	</div>
+</div>
 <%if(showFullPageUrl && !preferenceFullPageUrl.isEmpty()) {%>
+	<br/>
+	<br/>
 	<p><%=LanguageUtil.get(pageContext, "All-available-projects")%> <a href=<%=preferenceFullPageUrl%>><%=LanguageUtil.get(pageContext, "here")%>.</p>
 <%}%>

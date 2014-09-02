@@ -35,8 +35,7 @@
 						id="<portlet:namespace /><%=CommunityViewConstants.SEARCH_STRING%>"
 						label="" placeholder="<%=placeholder%>" title="<%=title%>"
 						name="<%=CommunityViewConstants.SEARCH_STRING%>"
-						value="<%=activeSearchString%>" 
-						style="float: left;"/>
+						value="<%=activeSearchString%>" />
 			  <aui:button type="submit" name="Suchen" value="lookup" />
 	</aui:form>
 </div>

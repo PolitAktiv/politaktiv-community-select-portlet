@@ -16,11 +16,9 @@
 if (viewContainer.getPortalState().isSignedIn()) {	
 	viewList = viewContainer.getMemberCommunities();
 %>
-	<tr>
-		<td colspan="2" class="community-select-classification">
+	<div class="community-select-classification">
 			<%=LanguageUtil.get(pageContext, "my-communities")%>
-		</td>
-	</tr>
+	</div>
 	<%
 	for (CommunityView communityView : viewList) {
 		String strCommunityId = communityView.getId();
@@ -51,13 +49,15 @@ if (viewContainer.getPortalState().isSignedIn()) {
 		}
 	%>
 	
-		<tr>
-			<td>
-				<a href="<%=urlToCommunity%>">
+		<div class="communityPictureAndLinkContainer">
+			<div class="communityPictureContainer" > 
+								<a href="<%=urlToCommunity%>">
 					<img src="<%=urlToLogo%>" alt="Picture of Project" class="community-select-logo" />
 				</a>
-			</td>
-			<td>
+			</div>
+
+
+			<div class="communityLinkContainer">
 				<span class="community-select-link">
 					<a href="<%=urlToCommunity%>"><%=communityView.getName()%></a>
 				</span>
@@ -68,8 +68,8 @@ if (viewContainer.getPortalState().isSignedIn()) {
 				<a href="<%=actionUrl%>">
 					<liferay-ui:message key="<%=communityView.getActionText()%>" />
 				</a>
-			</td>
-		</tr>
+			</div>
+		</div>
 	<%
 	}
 }
