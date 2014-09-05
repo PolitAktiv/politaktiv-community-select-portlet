@@ -12,9 +12,10 @@
  limitations under the License.
  --%>
 
+<%@page import="org.politaktiv.communityselect.util.PolitatkivInputUtil"%>
 <%
-String preferenceFullPageUrl = portletPreferences.getValue(CommunityViewConstants.PREFERENCE_FULL_PAGE_URL, "");
-int numberOfCommunitiesToShow = new Integer(portletPreferences.getValue("numberOfCommunitiesToShowInVerticalView","0"));
+String preferenceFullPageUrl = portletPreferences.getValue("fullPageURL", "www.politaktiv.org");
+int numberOfCommunitiesToShow = PolitatkivInputUtil.getSafeNumberOfCommunitiesToShow(portletPreferences);
 boolean showFullPageUrl = (numberOfCommunitiesToShow != 0) && 
 	(numberOfCommunitiesToShow < (viewContainer.getNonMemberOpenCommunities().size() + 
 		viewContainer.getMemberCommunities().size()));

@@ -17,7 +17,7 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 	
 	PreferencesRepository prefsRepository = new PreferencesRepository();
     PAParamUtil PaParamUtil = new PAParamUtil();
-    private static Log _log = LogFactoryUtil.getLog(ConfigurationActionImpl.class);
+   // private static Log _log = LogFactoryUtil.getLog(ConfigurationActionImpl.class);
 
     @Override
     public void processAction(
@@ -29,13 +29,13 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
         //get preferences from edit.jsp call
         PortletPreferences preferences = actionRequest.getPreferences();
         String viewMode = preferences.getValue("viewMode", "vertical_View");
-        String maxCommunitiesToShow = preferences.getValue("numberOfCommunitiesToShowInVerticalView", "15");
-        String preferenceFullPageUrl = preferences.getValue(CommunityViewConstants.PREFERENCE_FULL_PAGE_URL, CommunityViewConstants.PREFERENCE_FULL_PAGE_URL);
+        String maxCommunitiesToShow = preferences.getValue("numberOfCommunitiesToShowInVerticalView", "0");
+        String preferenceFullPageUrl = preferences.getValue("fullPageURL", "www.politaktiv.org"); //main page as default, in case something goes wrong
 
         // write them into the database
         prefsRepository.setValueAndStore(preferences, "viewMode", viewMode); // except for wide view: another bug here
         prefsRepository.setValueAndStore(preferences, "numberOfCommunitiesToShowInVerticalView", maxCommunitiesToShow);
-        prefsRepository.setValueAndStore(preferences, CommunityViewConstants.PREFERENCE_FULL_PAGE_URL, preferenceFullPageUrl);
+        prefsRepository.setValueAndStore(preferences, "fullPageURL", preferenceFullPageUrl);
 
     }
 }

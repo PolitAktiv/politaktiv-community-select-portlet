@@ -12,6 +12,7 @@
  limitations under the License.
  --%>
 
+<%@page import="org.politaktiv.communityselect.util.PolitatkivInputUtil"%>
 <%@ include file="./init.jsp" %>
 
 <portlet:defineObjects /> 
@@ -27,11 +28,9 @@
 <% 
 	boolean isWideViewMode = portletPreferences.getValue("viewMode", "default").equals("wide_view");
 	boolean isVerticalViewMode = portletPreferences.getValue("viewMode", "default").equals("vertical_view");
-	String preferenceFullPageUrl = portletPreferences.getValue(CommunityViewConstants.PREFERENCE_FULL_PAGE_URL, "default");
-	int numberOfCommunitiesToShow = new Integer(portletPreferences.getValue("numberOfCommunitiesToShowInVerticalView","0"));
-
+	int numberOfCommunitiesToShow = PolitatkivInputUtil.getSafeNumberOfCommunitiesToShow(portletPreferences);
+	String preferenceFullPageUrl = portletPreferences.getValue("fullPageURL", "www.politaktiv.org"); //in case something goes wrong, go back to main page
 %>
-
 	
 <%
 	String currentView = "";
@@ -47,26 +46,29 @@
 
 	<aui:fieldset>
 
-
-		<aui:input type="radio" name="preferences--viewMode--" label="wide-view" value="wide_view"/>
-		<aui:input type="radio" name="preferences--viewMode--" label="vertical-view" value="vertical_view"/>
+		<%//Todo: internationalize %>
+		<aui:input type="radio" name="preferences--viewMode--" label="Breite Ansicht (Bitte in breiten Spalten verwenden! Grafikfehler bei zu kleiner Spalte.)" value="wide_view"/>
+		<aui:input type="radio" name="preferences--viewMode--" label="Vertikale Ansicht (Bitte in schmalen Spalten verwenden! Füllt Platz nicht aus bei zu großen Spalten.)" value="vertical_view"/>
 		<p>(Aktuelle Ansicht: <%=currentView%>)</p>
 		<br/>
 		<br/>
 
 		<aui:input 	name="preferences--numberOfCommunitiesToShowInVerticalView--" 
-					label="Wie viele Diskussionskreise sollen im vertikalen View maximal angezeigt werden?"
+					label="Wie viele Diskussionskreise sollen im vertikalen View maximal angezeigt werden? (Bitte ausschließlich Zahlen eintragen!)"
 					value="<%= numberOfCommunitiesToShow %>"/>		
 
 		<br/>
 		<br/>
-
+		
 		<aui:input id="<portlet:namespace />FULL_COMMUNITY_URL"
 						label="URL zur Hauptseite"
-						name="<%=CommunityViewConstants.PREFERENCE_FULL_PAGE_URL%>"
+						name="preferences--fullPageURL--"
 						value="<%=preferenceFullPageUrl%>">
 		</aui:input>
-	
+		<p>beschreibt den Link zu einer Seite auf Politaktiv. Er ist dafür gedacht, auf eine Seite zu verlinken, die ein Community-Select-Portlet mit allen Diskussionskreisen (in breiter Ansicht) beinhaltet. </p>
+		<p>Bitte darauf achten, einen relativen Link zu benutzen!</p>
+		<p>Beispiel: Für die Hauptseite des Diskussionskreises "BB-Nufringen Mitte" benutzen Sie:</p>
+		<p>web/nufringen</p>
 	    <aui:button-row>
 	       <aui:button type="submit" value="save"/>
 	    </aui:button-row>
