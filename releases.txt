@@ -1,5 +1,10 @@
 ReleaseNotes:
 
+6.2.1.2
+-----------------------
+* fixed link in custom configuration
+* filtered user input of custom configurations
+
 6.2.1.1
 -------------------------
 * Fixed custom configuration
