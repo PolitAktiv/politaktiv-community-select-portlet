@@ -13,6 +13,7 @@
 }
 .community-select-link {
 	font-size:130%;
+	display: table-caption;
 }
 
 .communityPictureContainer{

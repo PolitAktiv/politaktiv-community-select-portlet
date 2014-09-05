@@ -76,6 +76,7 @@ for (int i = 0; i < numberOfCommunitiesToShow; i++) {
 			</a>
 		</div>
 	</div>
+	<br/>
 
 <%
 }
