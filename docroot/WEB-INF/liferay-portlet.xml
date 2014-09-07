@@ -7,7 +7,7 @@
 		<portlet-name>Politaktiv Community Select Portlet</portlet-name>
 		<icon>/icon.png</icon>
 		<configuration-action-class>
-			org.politaktiv.communityselect.application.ConfigurationActionImpl
+			org.politaktiv.communityselect.configuration.ConfigurationActionController
 		</configuration-action-class>
 		<instanceable>false</instanceable>
 		<header-portlet-css>/css/main.css</header-portlet-css>

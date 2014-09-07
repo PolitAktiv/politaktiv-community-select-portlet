@@ -21,14 +21,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.ValidatorException;
 
 import org.politaktiv.communityselect.domain.PreferencesRepository;
 import org.politaktiv.infrastructure.liferay.PAParamUtil;

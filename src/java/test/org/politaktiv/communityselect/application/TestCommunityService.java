@@ -29,6 +29,7 @@ import org.politaktiv.communityselect.application.CommunityViewContainer;
 import org.politaktiv.communityselect.application.InitializeEvent;
 import org.politaktiv.communityselect.application.PortalState;
 import org.politaktiv.communityselect.application.SearchEvent;
+import org.politaktiv.communityselect.configuration.ConfigurationUtil;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -152,6 +153,22 @@ public class TestCommunityService {
 
 	PortalState singedOffPortalState() {
 		return new PortalState(false, null, "localhost:8080", false, "", "");
+	}
+	
+	@Test
+	public void testConfigurationUtil() {
+		//should return input unchanged
+		int validInput = ConfigurationUtil.ensureValidNumberOfCommunities("12");
+		assertEquals(12, validInput);
+		
+		//should return default (1)
+		int emptyInput = ConfigurationUtil.ensureValidNumberOfCommunities("");
+		assertEquals(1, emptyInput);
+		
+		//should return default (1)
+		int invalidInput = ConfigurationUtil.ensureValidNumberOfCommunities("liferay4ever");
+		assertEquals(1, invalidInput);
+
 	}
 
 }

@@ -12,23 +12,23 @@
  limitations under the License.
  --%>
 
-<%@page import="org.politaktiv.communityselect.util.PolitatkivInputUtil"%>
+<%@page import="org.politaktiv.communityselect.configuration.ConfigurationUtil"%>
 <%@ include file="./init.jsp" %>
 
 <portlet:defineObjects /> 
 
-<liferay-ui:error message="Problem beim Speichern der Ansicht" key="problem-while-saving-new-view-mode" />
-<liferay-ui:error key="illegalDatatype" message="illegal-datatype" />
-<liferay-ui:error key="smallerZero" message="please-not-smaller-zero" />
+java.lang.Object errorException = (java.lang.Object) pageContext.getAttribute("errorException");
+java.lang.Object errorException = (java.lang.Object) pageContext.getAttribute("errorException");
+java.lang.Object errorException = (java.lang.Object) pageContext.getAttribute("errorException");
 
 
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
 <liferay-portlet:actionURL portletConfiguration="true" var="configurationURL" />
 
-<% 
+<%
 	boolean isWideViewMode = portletPreferences.getValue("viewMode", "default").equals("wide_view");
 	boolean isVerticalViewMode = portletPreferences.getValue("viewMode", "default").equals("vertical_view");
-	int numberOfCommunitiesToShow = PolitatkivInputUtil.getSafeNumberOfCommunitiesToShow(portletPreferences);
+	int numberOfCommunitiesToShow = ConfigurationUtil.getSafeNumberOfCommunitiesToShow(portletPreferences);
 	String preferenceFullPageUrl = portletPreferences.getValue("fullPageURL", "www.politaktiv.org"); //in case something goes wrong, go back to main page
 %>
 	

@@ -60,7 +60,6 @@ import com.liferay.portal.model.LayoutFriendlyURLComposite;
 import com.liferay.portal.model.LayoutQueryStringComposite;
 import com.liferay.portal.model.LayoutSet;
 import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.Resource;
 import com.liferay.portal.model.ResourcePermission;
 import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -69,6 +68,8 @@ import com.liferay.portal.util.PortalPortEventListener;
 import com.liferay.portlet.expando.model.ExpandoBridge;
 
 public class PortalMock implements Portal {
+	
+	//private static Log _log = LogFactoryUtil.getLog(PortalMock.class);
 
     @Override
     public void addPageDescription(String description, HttpServletRequest request) {
@@ -937,8 +938,12 @@ public class PortalMock implements Portal {
 
     @Override
     public String getPathFriendlyURLPublic() {
-	// TODO Auto-generated method stub
-	return null;
+	// This auto-generated method is called by PortalUtil.getPathFriendlyURLPublic() which is called by CommunityService.calculateUrlToCommunity(PortalState, String)
+    	//Thus the JUnit-Test fails, because this method returns null.
+    	//This is of because org.politaktiv.communityselect.application.TestCommunityService.setupClass() 
+    	//Thus, this method now returns "/web" 
+    //_log.info("portalMockisCalled");
+	return "/web";
     }
 
     @Override

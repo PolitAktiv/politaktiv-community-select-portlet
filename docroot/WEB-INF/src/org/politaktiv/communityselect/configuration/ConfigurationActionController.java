@@ -1,19 +1,16 @@
-package org.politaktiv.communityselect.application;
+package org.politaktiv.communityselect.configuration;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
-import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 
 import org.politaktiv.communityselect.domain.PreferencesRepository;
 import org.politaktiv.infrastructure.liferay.PAParamUtil;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 
-public class ConfigurationActionImpl extends DefaultConfigurationAction {
+public class ConfigurationActionController extends DefaultConfigurationAction {
 	
 	PreferencesRepository prefsRepository = new PreferencesRepository();
     PAParamUtil PaParamUtil = new PAParamUtil();
@@ -26,7 +23,7 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
         super.processAction(portletConfig, actionRequest, actionResponse);
 
-        //get preferences from edit.jsp call
+        //get preferences from configuration.jsp call
         PortletPreferences preferences = actionRequest.getPreferences();
         String viewMode = preferences.getValue("viewMode", "vertical_View");
         String maxCommunitiesToShow = preferences.getValue("numberOfCommunitiesToShowInVerticalView", "0");
