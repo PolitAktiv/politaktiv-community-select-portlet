@@ -15,6 +15,7 @@
 <%
 viewList = viewContainer.getMemberCommunities();
 %>
+
 <table class="taglib-search-iterator">
 	<tr class="portlet-section-header results-header">
 		<th><liferay-ui:message key="image"/></th>

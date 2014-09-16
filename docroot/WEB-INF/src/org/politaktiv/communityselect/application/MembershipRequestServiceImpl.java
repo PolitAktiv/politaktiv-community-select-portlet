@@ -14,23 +14,17 @@
 
 package org.politaktiv.communityselect.application;
 
+import org.politaktiv.community.application.MembershipRequestService;
 
-public class InitializeEvent implements Event {
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.MembershipRequestConstants;
+import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
+
+public class MembershipRequestServiceImpl implements MembershipRequestService{
 	
-	PortalState data;
-	private long currentCompanyId;
+    public boolean isUserMembershipRequestPending(long userId, long communityId) throws SystemException{
+        return MembershipRequestLocalServiceUtil.hasMembershipRequest(userId,
+                communityId, MembershipRequestConstants.STATUS_PENDING);
+    }
 
-	public InitializeEvent(long currentCompanyId,
-			PortalState portalState) {
-		this.currentCompanyId = currentCompanyId;
-		this.data = portalState;
-	}
-	
-	public long getCurrentCompanyId() {
-		return currentCompanyId;
-	}
-
-	public PortalState getPortalState() {
-		return data;
-	}
 }

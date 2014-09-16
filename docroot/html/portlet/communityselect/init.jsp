@@ -41,8 +41,8 @@
 <%@ page import="com.liferay.portal.model.MembershipRequestConstants" %>
 <%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
 <%@ page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %>
-<%@ page import="org.politaktiv.communityselect.application.CommunityView" %>
-<%@ page import="org.politaktiv.communityselect.application.CommunityViewContainer" %>
-<%@ page import="org.politaktiv.communityselect.application.CommunityViewConstants" %>
+<%@ page import="org.politaktiv.community.application.CommunityView" %>
+<%@ page import="org.politaktiv.community.application.CommunityViewContainer" %>
+<%@ page import="org.politaktiv.community.application.CommunityViewConstants" %>
 
 <%@ page import="com.liferay.portal.kernel.util.Constants" %>
