@@ -79,16 +79,14 @@ public class CommunityServiceImpl implements CommunityService{
             nameToSearch);
     }
 
-    Set<Long> userGroupIds = null;
     long userId = 0;
     if (portalState.isSignedIn()) {
         userId = portalState.getUserId();
-        userGroupIds = portalState.getGroupIds();
     }
 
     for (Community communityDomain : communityDomainList) {
         if (portalState.isSignedIn()) {
-        container = handleSignedInCase(container, portalState, userGroupIds, userId, communityDomain);
+        container = handleSignedInCase(container, portalState, userId, communityDomain);
         } else {
         container = handleSignedOffCase(container, portalState, userId, communityDomain);
         }
@@ -98,8 +96,8 @@ public class CommunityServiceImpl implements CommunityService{
     }
 
     CommunityViewContainer handleSignedInCase(CommunityViewContainer container, PortalState portalState,
-        Set<Long> userGroupIds, long userId, Community communityDomain) {
-    boolean isGroupMember = isGroupMember(userGroupIds, communityDomain);
+         long userId, Community communityDomain) {
+    boolean isGroupMember = isGroupMember(portalState.getGroupIds(), communityDomain);
     if (isGroupMember) {
         container.addMemberCommunity(createMemberCommunity(portalState, communityDomain));
     } else if (communityDomain.isOpenCommunity()) {
