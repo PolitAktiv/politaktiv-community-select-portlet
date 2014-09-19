@@ -264,7 +264,7 @@ public class CommunitySelectPortlet extends MVCPortlet {
 
     PortletSession fireEvent(PortletSession portletSession, Event event) {
         Queue<Event> eventQueue = getOrCreateEventListFromSession(portletSession);
-        eventQueue.add(event);
+        eventQueue.offer(event);
         return portletSession;
     }
 
