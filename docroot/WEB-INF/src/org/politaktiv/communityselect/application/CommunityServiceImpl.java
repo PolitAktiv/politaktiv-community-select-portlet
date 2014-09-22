@@ -65,6 +65,11 @@ public class CommunityServiceImpl implements CommunityService{
 
     return container;
     }
+    
+    public CommunityViewContainer updateViewContainer(CommunityViewContainer container, PortalState currPortalState){
+        container.setPortalState(currPortalState);
+        return container;
+    }
 
     CommunityViewContainer searchCommunity(CommunityViewContainer container, String nameToSearch){
 
@@ -244,14 +249,18 @@ public class CommunityServiceImpl implements CommunityService{
 
     public CommunityViewContainer joinCommunity(CommunityViewContainer container, JoinEvent event){
     repository.joinCommunity(event.getUserId(), event.getCommunityId());
-    container.setPortalState(event.getPortalState());
+    PortalState newPortalState = event.getPortalState();
+    newPortalState.addGroupId(event.getCommunityId());
+    container.setPortalState(newPortalState);
     container = searchCommunity(container, container.getNameToSearch());
     return container;
     }
-
+    
     public CommunityViewContainer leaveCommunity(CommunityViewContainer container, LeaveEvent event){
     repository.leaveCommunity(event.getUserId(), event.getCommunityId());
-    container.setPortalState(event.getPortalState());
+    PortalState newPortalState = event.getPortalState();
+    newPortalState.removeGroupId(event.getCommunityId());
+    container.setPortalState(newPortalState);
     container = searchCommunity(container, container.getNameToSearch());
     return container;
     }
@@ -268,4 +277,5 @@ public class CommunityServiceImpl implements CommunityService{
     container = searchCommunity(container, container.getNameToSearch());
     return container;
     }
+
 }
