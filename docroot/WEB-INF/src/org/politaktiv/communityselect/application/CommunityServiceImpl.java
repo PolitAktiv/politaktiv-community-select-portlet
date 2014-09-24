@@ -3,19 +3,22 @@ package org.politaktiv.communityselect.application;
 import java.util.List;
 import java.util.Set;
 
-import org.politaktiv.community.application.CommunityService;
+import org.politaktiv.community.application.AfterPageRefreshEvent;
 import org.politaktiv.community.application.CommunityView;
 import org.politaktiv.community.application.CommunityViewContainer;
 import org.politaktiv.community.application.InitializeEvent;
 import org.politaktiv.community.application.JoinEvent;
 import org.politaktiv.community.application.LeaveEvent;
-import org.politaktiv.community.application.MembershipRequestService;
 import org.politaktiv.community.application.RequestMembershipEvent;
 import org.politaktiv.community.application.SearchEvent;
 import org.politaktiv.community.domain.CommunitiesRepository;
 import org.politaktiv.community.domain.Community;
+import org.politaktiv.community.domain.CommunityService;
+import org.politaktiv.community.domain.MembershipRequestService;
 import org.politaktiv.community.domain.PortalState;
 
+import com.liferay.portal.kernel.log.Log;
+//import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.util.PortalUtil;
 
@@ -25,6 +28,7 @@ public class CommunityServiceImpl implements CommunityService{
     CommunitiesRepository repository = new CommunitiesRepositoryImpl();    
     MembershipRequestService membershipRequestService = new MembershipRequestServiceImpl();
     int showOtherLimit = 10;
+    //private static Log _log = LogFactoryUtil.getLog(CommunityServiceImpl.class);
 
     public void setCommunitiesRepository(CommunitiesRepository repository) {
     this.repository = repository;
@@ -66,10 +70,6 @@ public class CommunityServiceImpl implements CommunityService{
     return container;
     }
     
-    public CommunityViewContainer updateViewContainer(CommunityViewContainer container, PortalState currPortalState){
-        container.setPortalState(currPortalState);
-        return container;
-    }
 
     CommunityViewContainer searchCommunity(CommunityViewContainer container, String nameToSearch){
 
@@ -276,6 +276,15 @@ public class CommunityServiceImpl implements CommunityService{
     container.setPortalState(event.getPortalState());
     container = searchCommunity(container, container.getNameToSearch());
     return container;
+    }
+
+    public CommunityViewContainer refreshCommunity(CommunityViewContainer container,
+            AfterPageRefreshEvent event) {
+        PortalState newPortalState = event.getPortalState();
+        newPortalState.addGroupId(event.getCommunityId());
+        container.setPortalState(newPortalState);
+        container = searchCommunity(container, container.getNameToSearch());
+        return container;
     }
 
 }

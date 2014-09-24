@@ -14,7 +14,7 @@
 
 package org.politaktiv.communityselect.application;
 
-import org.politaktiv.community.application.MembershipRequestService;
+import org.politaktiv.community.domain.MembershipRequestService;
 
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.MembershipRequestConstants;

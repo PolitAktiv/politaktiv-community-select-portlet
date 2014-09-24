@@ -5,7 +5,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletPreferences;
 
-import org.politaktiv.community.domain.PreferencesRepository;
+import org.politaktiv.communityselect.domain.PreferencesRepository;
 import org.politaktiv.infrastructure.liferay.PAParamUtil;
 
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;

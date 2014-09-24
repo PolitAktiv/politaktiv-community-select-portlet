@@ -29,16 +29,17 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.politaktiv.community.application.CommunityService;
+import org.politaktiv.community.application.AfterPageRefreshEvent;
 import org.politaktiv.community.application.CommunityViewConstants;
 import org.politaktiv.community.application.CommunityViewContainer;
 import org.politaktiv.community.application.Event;
 import org.politaktiv.community.application.InitializeEvent;
 import org.politaktiv.community.application.JoinEvent;
 import org.politaktiv.community.application.LeaveEvent;
-import org.politaktiv.community.application.MembershipRequestService;
 import org.politaktiv.community.application.RequestMembershipEvent;
 import org.politaktiv.community.application.SearchEvent;
+import org.politaktiv.community.domain.CommunityService;
+import org.politaktiv.community.domain.MembershipRequestService;
 import org.politaktiv.community.domain.PortalState;
 import org.politaktiv.infrastructure.liferay.PAParamUtil;
 
@@ -87,13 +88,18 @@ public class CommunitySelectPortlet extends MVCPortlet {
                 themeDisplay.getDoAsUserId(), 
                 user.getUserId(),
                 initializeUserGroupSet(user));
+        
+
 
         try {
             portletSession = doLazyInitializeSession(portletSession,
                     themeDisplay.getCompanyId(), currentPortalState);
-            portletSession = consumeEvents(portletSession, currentPortalState);
+            
+
+            portletSession = consumeEvents(portletSession, currentPortalState, themeDisplay.getCompanyGroupId());
             renderRequest = copyViewFromSessionToRequest(renderRequest,
                     portletSession);
+            
         } catch (Exception e) {
             throw new PortletException(e);
         }
@@ -229,37 +235,52 @@ public class CommunitySelectPortlet extends MVCPortlet {
     }
 
     PortletSession consumeEvents(PortletSession portletSession,
-            PortalState currentPortalState) throws PortalException,
+            PortalState currentPortalState, long companyId) throws PortalException,
             SystemException {
         Queue<Event> eventQueue = getOrCreateEventListFromSession(portletSession);
         CommunityViewContainer container = getViewContainer(portletSession);
 
-        while (!eventQueue.isEmpty()) {
-            Event event = eventQueue.poll();
-            if (event instanceof InitializeEvent) {
-                container = communityService
-                        .initializeView((InitializeEvent) event);
-            } else if (event instanceof SearchEvent) {
-                container = communityService.searchCommunity(container,
-                        (SearchEvent) event);
-            } else if (event instanceof JoinEvent) {
-                container = communityService.joinCommunity(container,
-                        (JoinEvent) event);
-            } else if (event instanceof LeaveEvent) {
-                container = communityService.leaveCommunity(container,
-                        (LeaveEvent) event);
-            } else if (event instanceof RequestMembershipEvent) {
-                container = communityService.requestCommunityMembership(
-                        container, (RequestMembershipEvent) event);
-            } else {
-                container = communityService.calculateView(container,
-                        currentPortalState);
+        //if there is nothing in the eventQueue at this point (this may happen after a page refresh for example),
+        //no event will be triggered. Triggering a event is necessary though, if the container should stay up-to-date in the view.
+        if(eventQueue.isEmpty()){
+            container = 
+                    communityService.refreshCommunity(container, new AfterPageRefreshEvent(currentPortalState.getUserId(), 
+                                                                                           companyId, 
+                                                                                           currentPortalState));
+        }else{
+            while (!eventQueue.isEmpty()) {
+                Event event = eventQueue.poll();
+                if (event instanceof InitializeEvent) {
+                    container = communityService
+                            .initializeView((InitializeEvent) event);
+                } else if (event instanceof SearchEvent) {
+                    container = communityService.searchCommunity(container,
+                            (SearchEvent) event);
+                } else if (event instanceof JoinEvent) {
+                    container = communityService.joinCommunity(container,
+                            (JoinEvent) event);
+                } else if (event instanceof LeaveEvent) {
+                    container = communityService.leaveCommunity(container,
+                            (LeaveEvent) event);
+                } else if (event instanceof RequestMembershipEvent) {
+                    container = communityService.requestCommunityMembership(
+                            container, (RequestMembershipEvent) event);
+                } else {
+                    container = communityService.calculateView(container,
+                            currentPortalState);
+                }
             }
         }
+
+        
+        
         eventQueue.clear();
         portletSession = putViewContainer(portletSession, container);
         return portletSession;
     }
+
+    
+
 
     <T extends PortletRequest> T copyViewFromSessionToRequest(T request,
             PortletSession portletSession) {
