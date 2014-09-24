@@ -41,6 +41,7 @@ import org.politaktiv.community.application.SearchEvent;
 import org.politaktiv.community.domain.CommunityService;
 import org.politaktiv.community.domain.MembershipRequestService;
 import org.politaktiv.community.domain.PortalState;
+import org.politaktiv.communityselect.domain.CommunityServiceCommunitySelectExtension;
 import org.politaktiv.infrastructure.liferay.PAParamUtil;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -60,7 +61,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 public class CommunitySelectPortlet extends MVCPortlet {
     private static final String EVENT_QUEUE = "EVENT_LIST";
     private static Log _log = LogFactoryUtil.getLog(CommunitySelectPortlet.class);
-    CommunityService communityService = new CommunityServiceImpl();
+    CommunityServiceCommunitySelectExtension communityService = new CommunityServiceImpl();
     PAParamUtil PaParamUtil = new PAParamUtil();
     MembershipRequestService membershiRequestService = new MembershipRequestServiceImpl();
 

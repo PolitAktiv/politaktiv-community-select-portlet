@@ -14,25 +14,27 @@ import org.politaktiv.community.application.RequestMembershipEvent;
 import org.politaktiv.community.application.SearchEvent;
 import org.politaktiv.community.domain.CommunitiesRepository;
 import org.politaktiv.community.domain.Community;
-import org.politaktiv.community.domain.CommunityService;
 import org.politaktiv.community.domain.MembershipRequestService;
 import org.politaktiv.community.domain.PortalState;
+import org.politaktiv.communityselect.domain.CommunitiesRepositoryCommunitySelectExtension;
+import org.politaktiv.communityselect.domain.CommunityServiceCommunitySelectExtension;
 
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.util.PortalUtil;
 //import com.liferay.portal.kernel.log.LogFactoryUtil;
 
-public class CommunityServiceImpl implements CommunityService{
+public class CommunityServiceImpl implements CommunityServiceCommunitySelectExtension{
 
     static final String COMMUNITY_DOMAIN_LIST = "COMMUNITY_DOMAIN_LIST";
-    CommunitiesRepository repository = new CommunitiesRepositoryImpl();    
+    CommunitiesRepositoryCommunitySelectExtension repository = new CommunitiesRepositoryImpl();    
     MembershipRequestService membershipRequestService = new MembershipRequestServiceImpl();
     int showOtherLimit = 10;
     //private static Log _log = LogFactoryUtil.getLog(CommunityServiceImpl.class);
 
-    public void setCommunitiesRepository(CommunitiesRepository repository) {
-    this.repository = repository;
-    }
+    public void setCommunitiesRepository(CommunitiesRepositoryCommunitySelectExtension repository) {
+        this.repository = repository;
+        }
+    
 
     public void setMembershipRequestService(MembershipRequestService membershipRequestService) {
     this.membershipRequestService = membershipRequestService;
@@ -297,5 +299,6 @@ public class CommunityServiceImpl implements CommunityService{
     private boolean isSearchEvent(Event e){
         return (e instanceof SearchEvent);
     }
+
 
 }

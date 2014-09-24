@@ -19,8 +19,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.politaktiv.community.domain.CommunitiesRepository;
 import org.politaktiv.community.domain.Community;
+import org.politaktiv.communityselect.domain.CommunitiesRepositoryCommunitySelectExtension;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -43,7 +43,7 @@ import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 
-public class CommunitiesRepositoryImpl implements CommunitiesRepository {
+public class CommunitiesRepositoryImpl implements CommunitiesRepositoryCommunitySelectExtension {
 
     private static Log _log = LogFactoryUtil.getLog(CommunitiesRepositoryImpl.class);
 
@@ -288,5 +288,6 @@ public class CommunitiesRepositoryImpl implements CommunitiesRepository {
         return returnGroupIdsToMembersCount;
 
     }
+
 
 }
