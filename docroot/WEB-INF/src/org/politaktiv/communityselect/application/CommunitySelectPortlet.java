@@ -29,7 +29,6 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.politaktiv.community.application.AfterPageRefreshEvent;
 import org.politaktiv.community.application.CommunityViewConstants;
 import org.politaktiv.community.application.CommunityViewContainer;
 import org.politaktiv.community.application.Event;
@@ -38,10 +37,9 @@ import org.politaktiv.community.application.JoinEvent;
 import org.politaktiv.community.application.LeaveEvent;
 import org.politaktiv.community.application.RequestMembershipEvent;
 import org.politaktiv.community.application.SearchEvent;
-import org.politaktiv.community.domain.CommunityService;
 import org.politaktiv.community.domain.MembershipRequestService;
 import org.politaktiv.community.domain.PortalState;
-import org.politaktiv.communityselect.domain.CommunityServiceCommunitySelectExtension;
+import org.politaktiv.communityselect.domain.CommunityService;
 import org.politaktiv.infrastructure.liferay.PAParamUtil;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -61,7 +59,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 public class CommunitySelectPortlet extends MVCPortlet {
     private static final String EVENT_QUEUE = "EVENT_LIST";
     private static Log _log = LogFactoryUtil.getLog(CommunitySelectPortlet.class);
-    CommunityServiceCommunitySelectExtension communityService = new CommunityServiceImpl();
+    CommunityService communityService = new CommunityServiceImpl();
     PAParamUtil PaParamUtil = new PAParamUtil();
     MembershipRequestService membershiRequestService = new MembershipRequestServiceImpl();
 
@@ -241,36 +239,29 @@ public class CommunitySelectPortlet extends MVCPortlet {
         Queue<Event> eventQueue = getOrCreateEventListFromSession(portletSession);
         CommunityViewContainer container = getViewContainer(portletSession);
 
-        //if there is nothing in the eventQueue at this point (this may happen after a page refresh for example),
-        //no event will be triggered. Triggering a event is necessary though, if the container should stay up-to-date in the view.
-        if(eventQueue.isEmpty()){
-            container = 
-                    communityService.refreshCommunity(container, new AfterPageRefreshEvent(currentPortalState.getUserId(), 
-                                                                                           companyId, 
-                                                                                           currentPortalState));
-        }else{
-            while (!eventQueue.isEmpty()) {
-                Event event = eventQueue.poll();
-                if (event instanceof InitializeEvent) {
-                    container = communityService
-                            .initializeView((InitializeEvent) event);
-                } else if (event instanceof SearchEvent) {
-                    container = communityService.searchCommunity(container,
-                            (SearchEvent) event);
-                } else if (event instanceof JoinEvent) {
-                    container = communityService.joinCommunity(container,
-                            (JoinEvent) event);
-                } else if (event instanceof LeaveEvent) {
-                    container = communityService.leaveCommunity(container,
-                            (LeaveEvent) event);
-                } else if (event instanceof RequestMembershipEvent) {
-                    container = communityService.requestCommunityMembership(
-                            container, (RequestMembershipEvent) event);
-                } else {
-                    container = communityService.calculateView(container,
-                            currentPortalState);
-                }
+
+        while (!eventQueue.isEmpty()) {
+            Event event = eventQueue.poll();
+            if (event instanceof InitializeEvent) {
+                container = communityService
+                        .initializeView((InitializeEvent) event);
+            } else if (event instanceof SearchEvent) {
+                container = communityService.searchCommunity(container,
+                        (SearchEvent) event);
+            } else if (event instanceof JoinEvent) {
+                container = communityService.joinCommunity(container,
+                        (JoinEvent) event);
+            } else if (event instanceof LeaveEvent) {
+                container = communityService.leaveCommunity(container,
+                        (LeaveEvent) event);
+            } else if (event instanceof RequestMembershipEvent) {
+                container = communityService.requestCommunityMembership(
+                        container, (RequestMembershipEvent) event);
+            } else {
+                container = communityService.calculateView(container,
+                        currentPortalState);
             }
+            
         }
 
         

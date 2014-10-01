@@ -3,7 +3,6 @@ package org.politaktiv.communityselect.application;
 import java.util.List;
 import java.util.Set;
 
-import org.politaktiv.community.application.AfterPageRefreshEvent;
 import org.politaktiv.community.application.CommunityView;
 import org.politaktiv.community.application.CommunityViewContainer;
 import org.politaktiv.community.application.Event;
@@ -12,29 +11,29 @@ import org.politaktiv.community.application.JoinEvent;
 import org.politaktiv.community.application.LeaveEvent;
 import org.politaktiv.community.application.RequestMembershipEvent;
 import org.politaktiv.community.application.SearchEvent;
-import org.politaktiv.community.domain.CommunitiesRepository;
 import org.politaktiv.community.domain.Community;
+import org.politaktiv.community.domain.MainCommunitiesRepository;
 import org.politaktiv.community.domain.MembershipRequestService;
 import org.politaktiv.community.domain.PortalState;
-import org.politaktiv.communityselect.domain.CommunitiesRepositoryCommunitySelectExtension;
-import org.politaktiv.communityselect.domain.CommunityServiceCommunitySelectExtension;
+import org.politaktiv.communityselect.domain.CommunitiesRepository;
+import org.politaktiv.communityselect.domain.CommunityService;
 
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.util.PortalUtil;
 //import com.liferay.portal.kernel.log.LogFactoryUtil;
 
-public class CommunityServiceImpl implements CommunityServiceCommunitySelectExtension{
+public class CommunityServiceImpl implements CommunityService{
 
     static final String COMMUNITY_DOMAIN_LIST = "COMMUNITY_DOMAIN_LIST";
-    CommunitiesRepositoryCommunitySelectExtension repository = new CommunitiesRepositoryImpl();    
+    CommunitiesRepository repository = new CommunitiesRepositoryImpl();    
     MembershipRequestService membershipRequestService = new MembershipRequestServiceImpl();
     int showOtherLimit = 10;
     //private static Log _log = LogFactoryUtil.getLog(CommunityServiceImpl.class);
 
-    public void setCommunitiesRepository(CommunitiesRepositoryCommunitySelectExtension repository) {
-        this.repository = repository;
-        }
-    
+
+    public <T extends MainCommunitiesRepository> void setCommunitiesRepository(T communitiesRepository) {
+        this.repository = (CommunitiesRepository)repository;
+    } 
 
     public void setMembershipRequestService(MembershipRequestService membershipRequestService) {
     this.membershipRequestService = membershipRequestService;
@@ -286,19 +285,13 @@ public class CommunityServiceImpl implements CommunityServiceCommunitySelectExte
     container = listCommunities(container, container.getNameToSearch(), isSearchEvent(event));
     return container;
     }
-
-    public CommunityViewContainer refreshCommunity(CommunityViewContainer container,
-            AfterPageRefreshEvent event) {
-        PortalState newPortalState = event.getPortalState();
-        newPortalState.addGroupId(event.getCommunityId());
-        container.setPortalState(newPortalState);
-        container = listCommunities(container, container.getNameToSearch(), isSearchEvent(event));
-        return container;
-    }
     
     private boolean isSearchEvent(Event e){
         return (e instanceof SearchEvent);
     }
+
+
+
 
 
 }
