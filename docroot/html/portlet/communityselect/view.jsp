@@ -11,14 +11,15 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  --%>
+
 <%@ include file="./init.jsp"%>
 
 <portlet:defineObjects />
 <liferay-theme:defineObjects />
 
 <%
-    CommunityViewContainer viewContainer = (CommunityViewContainer) renderRequest
-		    .getAttribute(CommunityViewConstants.COMMUNITY_VIEW);
+    byte[] serializedContainer = (byte[])(renderRequest.getAttribute(CommunityViewConstants.COMMUNITY_VIEW));
+	CommunityViewContainer viewContainer = (CommunityViewContainer) CommunitySerializationUtil.deserializeContainer(serializedContainer); 
     String activeSearchString = (String) renderRequest.getAttribute(CommunityViewConstants.SEARCH_STRING);
     String viewMode = portletPreferences.getValue("viewMode", "vertical_view");
     String placeholder = LanguageUtil.get(pageContext, "search-for-project-ellipsis");

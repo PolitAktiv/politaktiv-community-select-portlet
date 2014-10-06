@@ -17,7 +17,6 @@ package org.politaktiv.communityselect.application;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Queue;
-import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import javax.portlet.ActionRequest;
@@ -29,6 +28,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import org.politaktiv.community.application.CommunitySerializationUtil;
 import org.politaktiv.community.application.CommunityViewConstants;
 import org.politaktiv.community.application.CommunityViewContainer;
 import org.politaktiv.community.application.Event;
@@ -87,13 +87,9 @@ public class CommunitySelectPortlet extends MVCPortlet {
                 themeDisplay.getDoAsUserId(), 
                 user.getUserId(),
                 initializeUserGroupSet(user));
-        
-
-
         try {
             portletSession = doLazyInitializeSession(portletSession,
                     themeDisplay.getCompanyId(), currentPortalState);
-            
 
             portletSession = consumeEvents(portletSession, currentPortalState, themeDisplay.getCompanyGroupId());
             renderRequest = copyViewFromSessionToRequest(renderRequest,
@@ -277,8 +273,12 @@ public class CommunitySelectPortlet extends MVCPortlet {
     <T extends PortletRequest> T copyViewFromSessionToRequest(T request,
             PortletSession portletSession) {
         CommunityViewContainer containerToShow = getViewContainer(portletSession);
-        request.setAttribute(CommunityViewConstants.COMMUNITY_VIEW,
-                containerToShow);
+        try {
+            request.setAttribute(CommunityViewConstants.COMMUNITY_VIEW,
+                    CommunitySerializationUtil.serializeContainer(containerToShow));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         request.setAttribute(CommunityViewConstants.SEARCH_STRING,
                 containerToShow.getNameToSearch());
         return request;
@@ -299,15 +299,28 @@ public class CommunitySelectPortlet extends MVCPortlet {
 
     PortletSession putViewContainer(PortletSession portletSession,
             CommunityViewContainer containerToShow) {
-        portletSession.setAttribute(CommunityViewConstants.COMMUNITY_VIEW,
-                containerToShow, PortletSession.APPLICATION_SCOPE);
+        
+        try {
+            portletSession.setAttribute(CommunityViewConstants.COMMUNITY_VIEW,
+                    CommunitySerializationUtil.serializeContainer(containerToShow), PortletSession.APPLICATION_SCOPE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return portletSession;
     }
 
     CommunityViewContainer getViewContainer(PortletSession portletSession) {
-        CommunityViewContainer containerToShow = (CommunityViewContainer) portletSession
+         byte[] serializedContainer = (byte[]) portletSession
                 .getAttribute(CommunityViewConstants.COMMUNITY_VIEW,
                         PortletSession.APPLICATION_SCOPE);
+         CommunityViewContainer containerToShow = null;
+        try {
+            containerToShow = CommunitySerializationUtil.deserializeContainer(serializedContainer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return containerToShow;
     }
 
@@ -324,7 +337,7 @@ public class CommunitySelectPortlet extends MVCPortlet {
         return (Queue<Event>) attribute;
     }
 
-    private Set<Long> initializeUserGroupSet(User user) {
+    private HashSet<Long> initializeUserGroupSet(User user) {
         
         long[] userGroupIdArray = new long[0];
         try {
@@ -332,7 +345,7 @@ public class CommunitySelectPortlet extends MVCPortlet {
         }  catch (SystemException e) {
             e.printStackTrace();
         }
-        Set<Long> userGroupIds = new HashSet<Long>();
+        HashSet<Long> userGroupIds = new HashSet<Long>();
         for (int i = 0; i < userGroupIdArray.length; i++) {
             userGroupIds.add(userGroupIdArray[i]);
         }
@@ -340,5 +353,6 @@ public class CommunitySelectPortlet extends MVCPortlet {
         return userGroupIds;
         }
     
+
    
 }
