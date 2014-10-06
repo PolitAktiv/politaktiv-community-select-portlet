@@ -1,6 +1,6 @@
-apply plugin: 'java'
-
 project.ext {
     sourceCompatibility=1.6
     targetCompatibility=1.6
 }
+
+ant.importBuild 'build.xml'
