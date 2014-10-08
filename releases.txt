@@ -1,5 +1,11 @@
 ReleaseNotes:
 
+6.2.1.3
+-----------------------
+* removed functionality and added it to politaktiv-community-component
+* now works consistent with politaktiv-easy-participation-portlet
+
+
 6.2.1.2
 -----------------------
 * fixed link in custom configuration
