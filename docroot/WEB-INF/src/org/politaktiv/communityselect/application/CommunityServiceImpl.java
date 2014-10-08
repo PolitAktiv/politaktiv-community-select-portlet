@@ -12,7 +12,6 @@ import org.politaktiv.community.application.LeaveEvent;
 import org.politaktiv.community.application.RequestMembershipEvent;
 import org.politaktiv.community.application.SearchEvent;
 import org.politaktiv.community.domain.Community;
-import org.politaktiv.community.domain.MainCommunitiesRepository;
 import org.politaktiv.community.domain.MembershipRequestService;
 import org.politaktiv.community.domain.PortalState;
 import org.politaktiv.communityselect.domain.CommunitiesRepository;
@@ -29,11 +28,6 @@ public class CommunityServiceImpl implements CommunityService{
     MembershipRequestService membershipRequestService = new MembershipRequestServiceImpl();
     int showOtherLimit = 10;
     //private static Log _log = LogFactoryUtil.getLog(CommunityServiceImpl.class);
-
-
-    public <T extends MainCommunitiesRepository> void setCommunitiesRepository(T communitiesRepository) {
-        this.repository = (CommunitiesRepository)repository;
-    } 
 
     public void setMembershipRequestService(MembershipRequestService membershipRequestService) {
     this.membershipRequestService = membershipRequestService;

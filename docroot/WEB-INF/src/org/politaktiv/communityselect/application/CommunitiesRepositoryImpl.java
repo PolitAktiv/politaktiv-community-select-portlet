@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.politaktiv.community.domain.Community;
 import org.politaktiv.communityselect.domain.CommunitiesRepository;
-import org.politaktiv.communityselect.domain.CommunityService;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -47,6 +46,7 @@ import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 public class CommunitiesRepositoryImpl implements CommunitiesRepository{
 
     private static Log _log = LogFactoryUtil.getLog(CommunitiesRepositoryImpl.class);
+    private CommunityFactoryImpl communityFactory = new CommunityFactoryImpl();
 
     public List<Community> findCommunitiesByCompanyId(long companyId) {
 
@@ -62,7 +62,7 @@ public class CommunitiesRepositoryImpl implements CommunitiesRepository{
 
             if (imageIdsToGroupIdsWithNameLogo.containsKey(group.getGroupId())) {
                 returnCommunities
-                        .add(new CommunityFactoryImpl().createCommunity(
+                        .add(communityFactory.createCommunity(
                                 group.getName(),
                                 group.getGroupId(),
                                 imageIdsToGroupIdsWithNameLogo.get(group
@@ -71,7 +71,7 @@ public class CommunitiesRepositoryImpl implements CommunitiesRepository{
                                 group.getFriendlyURL(), group.getType()));
             } else {
                 returnCommunities
-                        .add(new CommunityFactoryImpl().createCommunity(
+                        .add(communityFactory.createCommunity(
                                 group.getName(),
                                 group.getGroupId(),
                                 numberOfMembersByGroupId.get(group.getGroupId()),
