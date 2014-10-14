@@ -17,11 +17,6 @@
 
 <portlet:defineObjects /> 
 
-java.lang.Object errorException = (java.lang.Object) pageContext.getAttribute("errorException");
-java.lang.Object errorException = (java.lang.Object) pageContext.getAttribute("errorException");
-java.lang.Object errorException = (java.lang.Object) pageContext.getAttribute("errorException");
-
-
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
 <liferay-portlet:actionURL portletConfiguration="true" var="configurationURL" />
 
