@@ -1,5 +1,9 @@
 ReleaseNotes:
 
+6.2.1.5
+-----------------------
+removed number of participants from view
+
 6.2.1.4
 -----------------------
 little error fixes in configuration.jsp
