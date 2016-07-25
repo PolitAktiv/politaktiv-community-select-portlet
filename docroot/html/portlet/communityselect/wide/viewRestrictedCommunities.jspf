@@ -19,7 +19,6 @@ viewList = viewContainer.getRestrictedCommunities();
 	<tr class="portlet-section-header results-header">
 		<th><liferay-ui:message key="image"/></th>
 	    <th><liferay-ui:message key="community"/></th>
-	    <th><liferay-ui:message key="users"/></th>
 	    <th><liferay-ui:message key="action"/></th>
   	</tr>
 	<%
@@ -61,13 +60,8 @@ viewList = viewContainer.getRestrictedCommunities();
 			
 			<td>
 			    <a href="<%=urlToCommunity%>"><%=communityView.getName()%></a>
-		    </td>
-			
-			<td>
-		    	<%= communityView.getMemberCount() %>
-		    </td>
-		    
-		    
+		   	</td>
+				    
 			<td>
 				<liferay-ui:icon image="<%=communityView.getActionIcon()%>" 
 					message="<%=communityView.getActionText()%>"
